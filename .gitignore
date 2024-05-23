@@ -1,0 +1,8 @@
+.idea
+.venv
+.env
+__pycache__
+*.log
+*.tmp
+Thumbs.db
+ehthumbs.db
