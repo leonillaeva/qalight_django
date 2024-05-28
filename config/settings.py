@@ -133,3 +133,6 @@ AUTH_USER_MODEL = 'accounts.User'
 
 # Auth urls
 LOGIN_URL = 'accounts:login'
+
+# Email
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
