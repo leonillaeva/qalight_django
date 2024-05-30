@@ -1,11 +1,17 @@
 from django.urls import path
 
-from .views import home_view, login_view, RegisterView
+from . import views
 
 urlpatterns = [
-    path('', home_view, name='home'),
-    path('login/', login_view, name='login'),
-    path('register/', RegisterView.as_view(), name='register'),
+    path('', views.home_view, name='home'),
+    path('login/', views.login_view, name='login'),
+    path('logout/', views.logout_view, name='logout'),
+    path('register/', views.RegisterView.as_view(), name='register'),
+    path(
+        "activate/<str:username>/<str:token>/",
+        views.ActivateAccountView.as_view(),
+        name="activate",
+    ),
 ]
 
 app_name = 'accounts'  # accounts:home

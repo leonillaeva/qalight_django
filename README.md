@@ -4,4 +4,4 @@ This project is training the Django project at QALight course.
 2. Lesson 46 **(django_46_lecture)**: migrations, class User, admin, accounts/managers, accounts/validators
 3. HW 46 ***(django_46_hw)***: add Bootstrap 5 styles, scripts
 4. Lesson 47 **(django_47_lecture)**: **Rendering and templates.** Add header; login, register forms; css, js; validation errors
-5. HW 47 ***(django_47_hw)***: creation models of tokens, db migrations; enameling of sending email; output into the console
+5. HW 47 ***(django_47_hw)***: creation models of tokens, db migrations; emulation of sending email and confirmation
