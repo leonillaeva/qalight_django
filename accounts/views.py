@@ -142,6 +142,6 @@ class CreateProfileView(LoginRequiredMixin, FormView):
 
     def dispatch(self, request, *args, **kwargs):
         if hasattr(request.user, "profile"):
-            messages.info(request, "You're already have profile")
+            messages.info(request, "You already have a profile")
             return redirect("accounts:home")
         return super().dispatch(request, *args, **kwargs)
