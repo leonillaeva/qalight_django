@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
@@ -9,7 +10,7 @@ from django.utils.http import url_has_allowed_host_and_scheme
 from django.views import View
 from django.views.generic import FormView, CreateView, DeleteView, DetailView, ListView
 
-from accounts.forms import LoginForm, RegisterForm
+from accounts.forms import LoginForm, RegisterForm, ProfileForm
 from accounts.models import ActivateToken
 from accounts.services import AccountsEmailNotification
 from config import settings
@@ -81,6 +82,7 @@ class ActivateAccountView(View):
         messages.error(request, "Token expired")
         return redirect("accounts:home")
 
+
 def login_view(request):
     if request.user.is_authenticated:
         messages.info(request, "You're already logged in")
@@ -125,3 +127,21 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('accounts:home')
+
+
+class CreateProfileView(LoginRequiredMixin, FormView):
+    template_name = "accounts/create_profile.html"
+    form_class = ProfileForm
+    success_url = reverse_lazy("accounts:home")
+
+    def form_valid(self, form):
+        profile = form.save(commit=False)
+        profile.user = self.request.user
+        profile.save()
+        return super().form_valid(form)
+
+    def dispatch(self, request, *args, **kwargs):
+        if hasattr(request.user, "profile"):
+            messages.info(request, "You're already have profile")
+            return redirect("accounts:home")
+        return super().dispatch(request, *args, **kwargs)
