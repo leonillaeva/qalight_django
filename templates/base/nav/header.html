@@ -21,6 +21,11 @@
             <div class="text-end">
                 {% if request.user.is_authenticated %}
                     <span><b>{{ request.user.get_full_name }}</b> ({{ request.user.username }})</span>
+                    {% if request.user.profile %}
+                        <img src="{{ request.user.profile.avatar.url }}"
+                             alt="{{ request.user.username }}'s avatar"
+                             width="25" height="25">
+                    {% endif %}
                     <a class="text-decoration-none" href="{% url "accounts:logout" %}">
                         <button type="button" class="btn btn-outline-light me-2">Logout</button>
                     </a>
