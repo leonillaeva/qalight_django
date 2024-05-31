@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.utils import timezone
 
 from django.contrib.auth.models import AbstractUser
@@ -41,6 +43,13 @@ class Profile(models.Model):
     def __str__(self):
         return f"{self.user.username}'s profile"
 
+    def get_age(self):
+        today = date.today()
+        age = today.year - self.date_of_birth.year
+        if today.month < self.date_of_birth.month or (
+                today.month == self.date_of_birth.month and today.day < self.date_of_birth.day):
+            age -= 1
+        return age
 
 class AbstractToken(models.Model):
     create_at = models.DateTimeField(auto_now_add=True)

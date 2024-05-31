@@ -11,7 +11,7 @@ from django.views import View
 from django.views.generic import FormView, CreateView, DeleteView, DetailView, ListView
 
 from accounts.forms import LoginForm, RegisterForm, ProfileForm
-from accounts.models import ActivateToken
+from accounts.models import ActivateToken, Profile
 from accounts.services import AccountsEmailNotification
 from config import settings
 
@@ -145,3 +145,10 @@ class CreateProfileView(LoginRequiredMixin, FormView):
             messages.info(request, "You already have a profile")
             return redirect("accounts:home")
         return super().dispatch(request, *args, **kwargs)
+
+
+@login_required
+def profile_view(request):
+    profile = get_object_or_404(Profile, user=request.user)
+    age = profile.get_age()
+    return render(request, 'accounts/profile.html', {'profile': profile, 'age': age})

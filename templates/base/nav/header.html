@@ -10,7 +10,6 @@
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="{% url "accounts:home" %}" class="nav-link px-2 text-secondary">Home</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">About</a></li>
             </ul>
 
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
@@ -22,9 +21,11 @@
                 {% if request.user.is_authenticated %}
                     <span><b>{{ request.user.get_full_name }}</b> ({{ request.user.username }})</span>
                     {% if request.user.profile %}
-                        <img src="{{ request.user.profile.avatar.url }}"
-                             alt="{{ request.user.username }}'s avatar"
-                             width="25" height="25">
+                        <a href="{% url 'accounts:profile' %}">
+                            <img src="{{ request.user.profile.avatar.url }}"
+                                 alt="{{ request.user.username }}'s avatar"
+                                 width="25" height="25">
+                        </a>
                     {% endif %}
                     <a class="text-decoration-none" href="{% url "accounts:logout" %}">
                         <button type="button" class="btn btn-outline-light me-2">Logout</button>
