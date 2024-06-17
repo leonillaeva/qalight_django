@@ -62,3 +62,14 @@ class CustomUserAdmin(admin.ModelAdmin):
     search_fields = ("username",)
     ordering = ("username",)
 
+
+@admin.register(models.ActivateToken)
+class ActivateTokenAdmin(admin.ModelAdmin):
+    list_display = ("user", "token", "create_at")
+    search_fields = ("user", "token")
+
+
+@admin.register(models.AccessAPIToken)
+class AccessAPITokenAdmin(admin.ModelAdmin):
+    list_display = ("user", "token", "create_at")
+    search_fields = ("user", "token")
