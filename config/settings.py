@@ -52,6 +52,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # users
+    'accounts.middleware.ProfileCompletionMiddleware'
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -136,3 +139,7 @@ LOGIN_URL = 'accounts:login'
 
 # Email
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+# Media files
+MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = 'media/'

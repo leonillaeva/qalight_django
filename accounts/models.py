@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.utils import timezone
 
 from django.contrib.auth.models import AbstractUser
@@ -5,7 +7,7 @@ from django.db import models
 from django.utils.crypto import get_random_string
 
 from accounts.managers import CustomUserManager
-from accounts.validators import validate_username, validate_name
+from accounts.validators import validate_username, validate_name, validate_birth_date
 
 
 class User(AbstractUser):
@@ -29,6 +31,25 @@ class User(AbstractUser):
         self.last_name = self.last_name.capitalize()
         super().save(*args, **kwargs)
 
+
+class Profile(models.Model):
+    GENDER_CHOICES = (("m", "Male"), ("f", "Female"))
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
+    avatar = models.ImageField(upload_to='uploads/%Y/%m/%d/')
+    gender = models.CharField(max_length=6, choices=GENDER_CHOICES)
+    date_of_birth = models.DateField(validators=[validate_birth_date])
+    info = models.CharField(max_length=255)
+
+    def __str__(self):
+        return f"{self.user.username}'s profile"
+
+    def get_age(self):
+        today = date.today()
+        age = today.year - self.date_of_birth.year
+        if today.month < self.date_of_birth.month or (
+                today.month == self.date_of_birth.month and today.day < self.date_of_birth.day):
+            age -= 1
+        return age
 
 class AbstractToken(models.Model):
     create_at = models.DateTimeField(auto_now_add=True)

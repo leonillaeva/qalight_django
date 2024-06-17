@@ -73,3 +73,10 @@ class ActivateTokenAdmin(admin.ModelAdmin):
 class AccessAPITokenAdmin(admin.ModelAdmin):
     list_display = ("user", "token", "create_at")
     search_fields = ("user", "token")
+
+
+@admin.register(models.Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ("user", "gender", "date_of_birth", "info")
+    list_filter = ("user", "gender", "date_of_birth")
+    search_fields = ("user", "gender")
