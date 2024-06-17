@@ -7,3 +7,4 @@ This project is training the Django project at QALight course.
 5. HW 47 ***(django_47_hw)***: creation models of tokens, db migrations; emulation of sending email and confirmation
 6. Lesson 49 **(django_49_lecture)**: creation a user profile; media
 7. HW 48 ***(django_48_hw)***: add a profile page with an output of the user's info
+8. HW 49 ***(django_49_hw)***: create a user's profile page by using the Bootstrap example
